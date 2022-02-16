@@ -32,6 +32,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/google_sans_medium"
                 android:padding="5dp"
+                android:textColor="@color/black"
                 android:text="Titile" />
 
             <TextView
@@ -41,6 +42,14 @@
                 android:fontFamily="@font/google_sans_medium"
                 android:padding="5dp"
                 android:text="Subtitle" />
+
+            <TextView
+                android:id="@+id/notesdetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/google_sans_medium"
+                android:padding="5dp"
+                android:text="Notes Details" />
 
             <TextView
                 android:id="@+id/item_date"

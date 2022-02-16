@@ -14,6 +14,7 @@ import com.developeralamin.notesmvvm.Activity.UpdateNotesActivity;
 import com.developeralamin.notesmvvm.Model.Notes;
 import com.developeralamin.notesmvvm.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
@@ -21,11 +22,18 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
     MainActivity mainActivity;
     List<Notes> notesList;
+    List<Notes> allNotesitem;
 
 
     public NotesAdapter(MainActivity mainActivity, List<Notes> notesList) {
         this.mainActivity = mainActivity;
         this.notesList = notesList;
+        allNotesitem = new ArrayList<>(notesList);
+    }
+
+    public void searchNotes(List<Notes> filterredName) {
+        this.notesList = filterredName;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -53,9 +61,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         }
         holder.title.setText(note.notestitle);
         holder.subtitle.setText(note.notessubtitle);
+        holder.notesdetails.setText(note.notes);
         holder.date.setText(note.date);
 
-        holder.itemView.setOnClickListener( v -> {
+        holder.itemView.setOnClickListener(v -> {
 
             Intent intent = new Intent(mainActivity, UpdateNotesActivity.class);
             intent.putExtra("id", note.id);
@@ -79,7 +88,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView title, subtitle, date;
+        TextView title, subtitle, notesdetails, date;
         View Priority;
 
         public ViewHolder(@NonNull View itemView) {
@@ -87,6 +96,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
             title = itemView.findViewById(R.id.item_title);
             subtitle = itemView.findViewById(R.id.item_subtitle);
+            notesdetails = itemView.findViewById(R.id.notesdetails);
             date = itemView.findViewById(R.id.item_date);
             Priority = itemView.findViewById(R.id.Priority);
         }

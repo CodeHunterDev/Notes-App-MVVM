@@ -1,18 +1,24 @@
 package com.developeralamin.notesmvvm.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.developeralamin.notesmvvm.Model.Notes;
 import com.developeralamin.notesmvvm.R;
 import com.developeralamin.notesmvvm.ViewModel.NoteViewModel;
 import com.developeralamin.notesmvvm.databinding.ActivityUpdateNotesBinding;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 
 import java.util.Date;
@@ -22,7 +28,7 @@ public class UpdateNotesActivity extends AppCompatActivity {
 
     ActivityUpdateNotesBinding binding;
     String Colors = "1";
-    String  stitile, ssubtitle, sprioriy, snotes;
+    String stitile, ssubtitle, sprioriy, snotes;
     int iid;
     NoteViewModel noteViewModel;
 
@@ -32,9 +38,11 @@ public class UpdateNotesActivity extends AppCompatActivity {
         binding = ActivityUpdateNotesBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        getSupportActionBar().setTitle("Update Note");
+
         noteViewModel = ViewModelProviders.of(this).get(NoteViewModel.class);
 
-        iid = getIntent().getIntExtra("id",0);
+        iid = getIntent().getIntExtra("id", 0);
         stitile = getIntent().getStringExtra("title");
         ssubtitle = getIntent().getStringExtra("subtitle");
         sprioriy = getIntent().getStringExtra("priority");
@@ -78,7 +86,6 @@ public class UpdateNotesActivity extends AppCompatActivity {
 
                 PrioritySetter("3");
 
-
                 Colors = "3";
 
             }
@@ -110,31 +117,73 @@ public class UpdateNotesActivity extends AppCompatActivity {
         updatenote.id = iid;
         updatenote.notestitle = title;
         updatenote.notessubtitle = subtitle;
+        updatenote.notes = notes;
         updatenote.Priority = Colors;
         updatenote.date = sequence.toString();
-        updatenote.notes = notes;
 
-        noteViewModel.updateNotes(updatenote);
+
+        noteViewModel.updateNote(updatenote);
 
         Toast.makeText(getApplicationContext(), "Updated Successful", Toast.LENGTH_SHORT).show();
         finish();
 
     }
 
-    void PrioritySetter(String prioriy){
-        if (prioriy.equals("1")){
+    void PrioritySetter(String prioriy) {
+        if (prioriy.equals("1")) {
             binding.yellow.setImageResource(R.drawable.ic_baseline_done_24);
             binding.green.setImageResource(0);
             binding.red.setImageResource(0);
-        }else if (prioriy.equals("2")){
+        } else if (prioriy.equals("2")) {
             binding.red.setImageResource(R.drawable.ic_baseline_done_24);
             binding.yellow.setImageResource(0);
             binding.green.setImageResource(0);
-        }else{
+        } else {
             binding.green.setImageResource(R.drawable.ic_baseline_done_24);
             binding.yellow.setImageResource(0);
             binding.red.setImageResource(0);
         }
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.delete_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (item.getItemId() == R.id.delete) {
+
+            BottomSheetDialog sheetDialog = new BottomSheetDialog(UpdateNotesActivity.this,
+                    R.style.BottomSheetStyle);
+
+            View view = LayoutInflater.from(UpdateNotesActivity.this).inflate(R.layout.delete_bottom_sheet,
+                    (LinearLayout) findViewById(R.id.bottomSheet));
+
+            sheetDialog.setContentView(view);
+
+            TextView yes, no;
+
+            yes = view.findViewById(R.id.delete_yes);
+            no = view.findViewById(R.id.delete_no);
+
+            yes.setOnClickListener(v -> {
+                noteViewModel.deleteNote(iid);
+                finish();
+            });
+
+            no.setOnClickListener(v -> {
+                sheetDialog.dismiss();
+            });
+
+            sheetDialog.show();
+
+        }
+
+        return true;
     }
 }

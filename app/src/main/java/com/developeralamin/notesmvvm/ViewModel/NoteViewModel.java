@@ -16,11 +16,17 @@ public class NoteViewModel extends AndroidViewModel {
     public NotesRepository repository;
     public LiveData<List<Notes>> getallNotes;
 
+    public LiveData<List<Notes>> hightolow;
+    public LiveData<List<Notes>> lowtohigh;
+
     public NoteViewModel(@NonNull Application application) {
         super(application);
 
         repository = new NotesRepository(application);
         getallNotes = repository.getallNotes;
+
+        hightolow = repository.hightolow;
+        lowtohigh = repository.lowtohigh;
     }
 
     public void insertNote(Notes notes) {
@@ -31,7 +37,7 @@ public class NoteViewModel extends AndroidViewModel {
         repository.deleteNotes(id);
     }
 
-    public void updateNotes(Notes notes) {
+    public void updateNote(Notes notes) {
         repository.updateNotes(notes);
     }
 }

@@ -77,8 +77,6 @@ public class InsetNoteActivity extends AppCompatActivity {
             subtitle = binding.notesSubtitle.getText().toString();
             notes = binding.notesDeatils.getText().toString();
 
-
-
            if (inputValidity()){
                CreateNote(title, subtitle, notes);
            }

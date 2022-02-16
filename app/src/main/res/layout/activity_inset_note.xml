@@ -38,7 +38,7 @@
             android:layout_marginRight="16dp"
             android:background="@drawable/edit_button"
             android:fontFamily="@font/google_sans_medium"
-            android:hint="Subtitle"
+            android:hint="Subtitle...."
             android:padding="15dp" />
 
 
@@ -60,6 +60,7 @@
                 android:layout_marginRight="10dp"
                 android:fontFamily="@font/google_sans_medium"
                 android:text="Color"
+                android:textStyle="bold"
                 android:textColor="@color/black" />
 
             <ImageView
@@ -67,8 +68,9 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_margin="10dp"
+                android:background="@drawable/yellow_shape"
                 android:src="@drawable/ic_baseline_done_24"
-                android:background="@drawable/yellow_shape" />
+                app:tint="@color/white" />
 
             <ImageView
                 android:id="@+id/red"
@@ -100,7 +102,7 @@
             android:background="@drawable/edit_button"
             android:fontFamily="@font/google_sans_medium"
             android:gravity="start"
-            android:hint="Notes"
+            android:hint="Notes...."
             android:padding="15dp" />
 
 
@@ -114,9 +116,13 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_margin="26dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginBottom="26dp"
         android:backgroundTint="@color/red"
-        android:src="@drawable/ic_baseline_done_24" />
+        android:src="@drawable/ic_baseline_done_24"
+        app:tint="@color/white" />
 
 
 </RelativeLayout>
