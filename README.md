@@ -1,7 +1,7 @@
 ## General
 Notes app using Room database & MVVM Architecture
 
-<a id="raw-url" href="Notes App MVVM.apk/?raw=true"><img src="img/download.svg"  width="180" height=auto>
+<a id="raw-url" href="apk/Notes App MVVM.apk?raw=true"><img src="img/download.svg"  width="180" height=auto>
 </a>
 
 
